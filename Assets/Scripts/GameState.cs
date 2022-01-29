@@ -9,6 +9,12 @@ public class GameState : MonoBehaviour
     [SerializeField]
     private Transform player;
 
+    public void Start()
+    {
+        ClassLibrary1.MyClass myClass = new ClassLibrary1.MyClass();
+        Debug.Log(myClass.Speak());
+    }
+
     public void Restart()
     {
         player.position = startLocation.position;

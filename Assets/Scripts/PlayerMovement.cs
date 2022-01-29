@@ -15,15 +15,18 @@ public class PlayerMovement : MonoBehaviour
     private MovementMode movementMode;
 
     private Rigidbody2D playerRigidbody;
-    private Vector2 moveVector;
+    private float xMove;
+    private float yMove;
     private bool jumping;
     private float currentJumpDuration;
     private bool grounded;
-    private PlayerMoveData modeData;
+    public PlayerMoveData moveData;
+
+    public bool canClimb;
 
     private void Start()
     {
-        modeData = humanModeData;
+        moveData = humanModeData;
         playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -32,16 +35,26 @@ public class PlayerMovement : MonoBehaviour
         // Check mode
         if (movementMode.robotMode)
         {
-            modeData = robotModeData;
+            moveData = robotModeData;
         }
         else
         {
-            modeData = humanModeData;
+            moveData = humanModeData;
         }
 
         // Get horizontal movement
-        float xMove = Input.GetAxis("Horizontal");
-        moveVector = new Vector3(xMove, 0.0f);
+        xMove = Input.GetAxis("Horizontal");
+
+        if (canClimb)
+        {
+            yMove = Input.GetAxis("Vertical");
+            playerRigidbody.gravityScale = 0.0f;
+        }
+        else
+        {
+            yMove = 0.0f;
+            playerRigidbody.gravityScale = moveData.gravityScale;
+        }
 
         // Jump
         if (Input.GetButtonDown("Jump") && grounded)
@@ -54,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentJumpDuration += Time.deltaTime;
 
-            if (currentJumpDuration >= modeData.maxJumpTime)
+            if (currentJumpDuration >= moveData.maxJumpTime)
             {
                 jumping = false;
                 currentJumpDuration = 0.0f;
@@ -65,23 +78,33 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Apply movement in physics, keeping vertical speed
-        Vector2 moveVelocity = moveVector * modeData.moveSpeed * Time.deltaTime;
-        Vector3 desiredVelocity = new Vector2(0.0f, playerRigidbody.velocity.y) + moveVelocity;
-        playerRigidbody.velocity = desiredVelocity;
+        Vector2 moveVector = new Vector2(xMove * moveData.moveSpeed, yMove * moveData.climbSpeed);
+        Vector2 moveVelocity = moveVector * Time.deltaTime;
+
+        if (canClimb)
+        {
+            Vector3 desiredVelocity = new Vector2(0.0f, 0.0f) + moveVelocity;
+            playerRigidbody.velocity = desiredVelocity;
+        }
+        else
+        {
+            Vector3 desiredVelocity = new Vector2(0.0f, playerRigidbody.velocity.y) + moveVelocity;
+            playerRigidbody.velocity = desiredVelocity;
+        }
 
         // Jump physics, keep horizontal speed
         if (jumping)
         {
-            Vector2 jumpVelocity = new Vector3(0.0f, modeData.jumpSpeed, 0.0f) * Time.deltaTime;
+            Vector2 jumpVelocity = new Vector3(0.0f, moveData.jumpSpeed, 0.0f) * Time.deltaTime;
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0.0f) + jumpVelocity;
         }
 
         // Ground test
         RaycastHit2D hit = Physics2D.BoxCast(
-            modeData.groundTestOrigin.position, 
-            modeData.groundCheckSize, 0.0f, 
+            moveData.groundTestOrigin.position, 
+            moveData.groundCheckSize, 0.0f, 
             -Vector2.up,
-            modeData.groundCheckDistance, 
+            moveData.groundCheckDistance, 
             groundLayers);
 
         if (hit.collider != null)
@@ -103,8 +126,8 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(
-            modeData.groundTestOrigin.position,
-            modeData.groundTestOrigin.position - Vector3.up * modeData.groundCheckDistance);
+            moveData.groundTestOrigin.position,
+            moveData.groundTestOrigin.position - Vector3.up * moveData.groundCheckDistance);
     }
 
     private void LateUpdate()
@@ -112,11 +135,11 @@ public class PlayerMovement : MonoBehaviour
         // Ground debug
         if (grounded)
         {
-            modeData.playerRenderer.color = Color.blue;
+            moveData.playerRenderer.color = Color.blue;
         }
         else
         {
-            modeData.playerRenderer.color = Color.red;
+            moveData.playerRenderer.color = Color.red;
         }
     }
 }
