@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Check mode
-        if (movementMode.robotMode)
+        if (movementMode.RobotMode)
         {
             moveData = robotModeData;
         }

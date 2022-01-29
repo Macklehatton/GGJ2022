@@ -16,11 +16,11 @@ public class Climable : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (byHuman && !mode.robotMode)
+        if (byHuman && !mode.RobotMode)
         {
             movement.canClimb = true;
         }
-        else if (byRobot && mode.robotMode)
+        else if (byRobot && mode.RobotMode)
         {
             movement.canClimb = true;
         }
@@ -32,11 +32,11 @@ public class Climable : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (byHuman && !mode.robotMode)
+        if (byHuman && !mode.RobotMode)
         {
             movement.canClimb = true;
         }
-        else if (byRobot && mode.robotMode)
+        else if (byRobot && mode.RobotMode)
         {
             movement.canClimb = true;
         }

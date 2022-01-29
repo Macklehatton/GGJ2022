@@ -41,7 +41,7 @@ public class CollapsingBlock : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !mode.robotMode)
+        if (collision.gameObject.CompareTag("Player") && !mode.RobotMode)
         {
             Collapse();
         }

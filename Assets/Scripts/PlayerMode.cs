@@ -4,30 +4,21 @@ using UnityEngine;
 
 public class PlayerMode : MonoBehaviour
 {
-    public bool robotMode;
+    private bool robotMode;
 
     [SerializeField]
     private GameObject human;
     [SerializeField]
     private GameObject robot;
 
+    public bool RobotMode { get => robotMode; }
+
     public void Update()
     {
-        CheckModeSwitch();
-
-        if (robotMode)
-        {
-            robot.SetActive(true);
-            human.SetActive(false);
-        }
-        else
-        {
-            robot.SetActive(false);
-            human.SetActive(true);
-        }
+        HandleModeSwitch();
     }
 
-    public void CheckModeSwitch()
+    private void CheckInputs()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -37,10 +28,28 @@ public class PlayerMode : MonoBehaviour
         {
             robotMode = true;
         }
-
-        if (Input.mouseScrollDelta.y != 0.0f)
+        else if ( Input.mouseScrollDelta.y != 0.0f ||
+                  Input.GetKeyDown(KeyCode.LeftShift) ||
+                  Input.GetKeyDown(KeyCode.F) ||
+                  Input.GetKeyDown(KeyCode.Tab) )
         {
-            robotMode = !robotMode;
+            robotMode = !RobotMode;
+        }
+    }
+
+    private void HandleModeSwitch()
+    {
+        CheckInputs();
+
+        if (RobotMode)
+        {
+            robot.SetActive(true);
+            human.SetActive(false);
+        }
+        else
+        {
+            robot.SetActive(false);
+            human.SetActive(true);
         }
     }
 }
