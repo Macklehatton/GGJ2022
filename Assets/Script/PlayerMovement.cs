@@ -9,22 +9,30 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float jumpSpeed;
     [SerializeField]
-    private float jumpTime;
+    private float maxJumpTime;
     [SerializeField]
-    private float gravity;
+    private Rigidbody2D rigidbody2D;
+    [SerializeField]
+    private float groundCheckDistance;
+    [SerializeField]
+    private SpriteRenderer renderer;
 
     private bool jumping;
-    private float timeJumped;
+    private float currentJumpDuration;
+    private bool grounded;
 
+    private void Start()
+    {
+        renderer = GetComponent<SpriteRenderer>();
+    }
 
-
-    void Update()
+    private void Update()
     {
         float xMove = Input.GetAxis("Horizontal");
 
         transform.position += new Vector3(xMove, 0.0f, 0.0f) * moveSpeed * Time.deltaTime;
-
-        if (Input.GetButtonDown("Jump"))
+        
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             jumping = true;
         }
@@ -33,15 +41,40 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position += new Vector3(0.0f, jumpSpeed, 0.0f) * Time.deltaTime;
 
-            timeJumped += Time.deltaTime;
+            currentJumpDuration += Time.deltaTime;
 
-            if (timeJumped > jumpTime)
+            if (currentJumpDuration >= maxJumpTime)
             {
                 jumping = false;
-                timeJumped = 0.0f;
+                grounded = false;
+                currentJumpDuration = 0.0f;
             }
         }
+    }
 
-        transform.position += new Vector3(0.0f, -gravity * 9.8f, 0.0f) * Time.deltaTime;
+    private void FixedUpdate()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, groundCheckDistance, LayerMask.NameToLayer("Environment"));
+
+        if (hit.collider != null)
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (grounded)
+        {
+            renderer.color = Color.blue;
+        }
+        else
+        {
+            renderer.color = Color.red;
+        }
     }
 }
