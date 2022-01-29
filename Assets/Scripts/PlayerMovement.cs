@@ -5,37 +5,40 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed;
+    private PlayerMoveData humanModeData;
     [SerializeField]
-    private float jumpSpeed;
-    [SerializeField]
-    private float maxJumpTime;
-    [SerializeField]
-    private Rigidbody2D rigidbody2D;
-    [SerializeField]
-    private float groundCheckDistance;
-    [SerializeField]
-    private SpriteRenderer renderer;
-    [SerializeField]
-    private Transform groundTestOrigin;
-    [SerializeField]
-    private LayerMask groundLayers;
-    [SerializeField]
-    private Vector3 groundCheckSize;
+    private PlayerMoveData robotModeData;
 
+    [SerializeField]
+    private LayerMask groundLayers;    
+    [SerializeField]
+    private MovementMode movementMode;
+
+    private Rigidbody2D playerRigidbody;
     private Vector2 moveVector;
     private bool jumping;
     private float currentJumpDuration;
     private bool grounded;
+    private PlayerMoveData modeData;
 
     private void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        modeData = humanModeData;
+        playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
+        // Check mode
+        if (movementMode.robotMode)
+        {
+            modeData = robotModeData;
+        }
+        else
+        {
+            modeData = humanModeData;
+        }
+
         // Get horizontal movement
         float xMove = Input.GetAxis("Horizontal");
         moveVector = new Vector3(xMove, 0.0f);
@@ -51,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentJumpDuration += Time.deltaTime;
 
-            if (currentJumpDuration >= maxJumpTime)
+            if (currentJumpDuration >= modeData.maxJumpTime)
             {
                 jumping = false;
                 currentJumpDuration = 0.0f;
@@ -62,19 +65,25 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Apply movement in physics, keeping vertical speed
-        Vector2 moveVelocity = moveVector * moveSpeed * Time.deltaTime;
-        Vector3 desiredVelocity = new Vector2(0.0f, rigidbody2D.velocity.y) + moveVelocity;
-        rigidbody2D.velocity = desiredVelocity;
+        Vector2 moveVelocity = moveVector * modeData.moveSpeed * Time.deltaTime;
+        Vector3 desiredVelocity = new Vector2(0.0f, playerRigidbody.velocity.y) + moveVelocity;
+        playerRigidbody.velocity = desiredVelocity;
 
         // Jump physics, keep horizontal speed
         if (jumping)
         {
-            Vector2 jumpVelocity = new Vector3(0.0f, jumpSpeed, 0.0f) * Time.deltaTime;
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0.0f) + jumpVelocity;
+            Vector2 jumpVelocity = new Vector3(0.0f, modeData.jumpSpeed, 0.0f) * Time.deltaTime;
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0.0f) + jumpVelocity;
         }
 
         // Ground test
-        RaycastHit2D hit = Physics2D.BoxCast(groundTestOrigin.position, groundCheckSize, 0.0f, -Vector2.up, groundCheckDistance, groundLayers);
+        RaycastHit2D hit = Physics2D.BoxCast(
+            modeData.groundTestOrigin.position, 
+            modeData.groundCheckSize, 0.0f, 
+            -Vector2.up,
+            modeData.groundCheckDistance, 
+            groundLayers);
+
         if (hit.collider != null)
         {
             grounded = true;
@@ -88,7 +97,9 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(groundTestOrigin.position, groundTestOrigin.position - Vector3.up * groundCheckDistance);
+        Gizmos.DrawLine(
+            modeData.groundTestOrigin.position,
+            modeData.groundTestOrigin.position - Vector3.up * modeData.groundCheckDistance);
     }
 
     private void LateUpdate()
@@ -96,11 +107,11 @@ public class PlayerMovement : MonoBehaviour
         // Ground debug
         if (grounded)
         {
-            renderer.color = Color.blue;
+            modeData.playerRenderer.color = Color.blue;
         }
         else
         {
-            renderer.color = Color.red;
+            modeData.playerRenderer.color = Color.red;
         }
     }
 }
