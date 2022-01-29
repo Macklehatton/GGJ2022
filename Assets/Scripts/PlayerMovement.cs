@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private Transform groundTestOrigin;
     [SerializeField]
     private LayerMask groundLayers;
+    [SerializeField]
+    private Vector3 groundCheckSize;
 
     private Vector2 moveVector;
     private bool jumping;
@@ -72,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Ground test
-        RaycastHit2D hit = Physics2D.BoxCast(groundTestOrigin.position, Vector2.one * transform.localScale, 0.0f, -Vector2.up, groundCheckDistance, groundLayers);
+        RaycastHit2D hit = Physics2D.BoxCast(groundTestOrigin.position, groundCheckSize, 0.0f, -Vector2.up, groundCheckDistance, groundLayers);
         if (hit.collider != null)
         {
             grounded = true;
