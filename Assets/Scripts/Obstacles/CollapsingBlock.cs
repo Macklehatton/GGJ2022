@@ -12,7 +12,7 @@ public class CollapsingBlock : MonoBehaviour
     [SerializeField]
     private float respawnTime;
     [SerializeField]
-    private MovementMode mode;
+    private PlayerMode mode;
 
     private Collider2D blockCollider;
     private TilemapRenderer renderer;

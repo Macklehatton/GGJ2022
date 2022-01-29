@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private LayerMask groundLayers;    
     [SerializeField]
-    private MovementMode movementMode;
+    private PlayerMode movementMode;
 
     private Rigidbody2D playerRigidbody;
     private float xMove;

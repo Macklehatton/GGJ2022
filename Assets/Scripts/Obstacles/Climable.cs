@@ -5,7 +5,7 @@ using UnityEngine;
 public class Climable : MonoBehaviour
 {
     [SerializeField]
-    private MovementMode mode;
+    private PlayerMode mode;
     [SerializeField]
     private PlayerMovement movement;
 

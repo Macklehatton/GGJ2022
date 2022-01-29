@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementMode : MonoBehaviour
+public class PlayerMode : MonoBehaviour
 {
     public bool robotMode;
 
