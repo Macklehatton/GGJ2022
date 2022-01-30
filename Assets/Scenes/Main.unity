@@ -894,9 +894,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994cc98a6298dbd4c9725e31e5e9c2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 100
   gameState: {fileID: 744961705}
-  currentHP: 0
+  currentHP: 100
 --- !u!1 &192832902
 GameObject:
   m_ObjectHideFlags: 0
