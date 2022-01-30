@@ -42,6 +42,14 @@ public class DamageZone : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            playerInZone = true;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Player"))
