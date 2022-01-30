@@ -24,8 +24,8 @@ public class PlayerAnimation : MonoBehaviour
         speed = (transform.position - lastPosition).magnitude;
         lastPosition = transform.position;
 
-        ResetAllBools(robotAnimator);
-        ResetAllBools(humanAnimator);
+        //ResetAllTriggers(robotAnimator);
+        //ResetAllTriggers(humanAnimator);
 
         if (!mode.RobotMode)
         {
@@ -40,14 +40,32 @@ public class PlayerAnimation : MonoBehaviour
     private void HandleHumanMode()
     {
         if (speed > 0.1f)
-        {            
-            humanAnimator.SetBool("humanWalk", true);
-            robotAnimator.SetBool("humanWalk", true);
+        {
+            if (!humanAnimator.GetCurrentAnimatorStateInfo(0).IsName("PlayerWalk"))
+            {
+                ResetAllTriggers(humanAnimator);
+                humanAnimator.SetTrigger("humanWalk");
+            }
+
+            if (!robotAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature_HumanWalk"))
+            {
+                ResetAllTriggers(robotAnimator);
+                robotAnimator.SetTrigger("humanWalk");
+            }
         }
         else
         {
-            humanAnimator.SetBool("humanIdle", true);
-            robotAnimator.SetBool("humanIdle", true);
+            if (!humanAnimator.GetCurrentAnimatorStateInfo(0).IsName("PlayerIdle"))
+            {
+                ResetAllTriggers(humanAnimator);
+                humanAnimator.SetTrigger("humanIdle");
+            }
+
+            if (!humanAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature_HumanIdle"))
+            {
+                ResetAllTriggers(robotAnimator);
+                robotAnimator.SetTrigger("humanIdle");
+            }
         }
     }
 
@@ -55,23 +73,47 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (speed > 0.1f)
         {
-            humanAnimator.SetBool("robotWalk", true);
-            robotAnimator.SetBool("robotWalk", true);
+            if (!humanAnimator.GetCurrentAnimatorStateInfo(0).IsName("HumanDangle"))
+            {
+                ResetAllTriggers(humanAnimator);
+                humanAnimator.SetTrigger("robotWalk");
+            }
+
+            if (!robotAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature_RobotWalk"))
+            {
+                ResetAllTriggers(robotAnimator);
+                robotAnimator.SetTrigger("robotWalk");
+            }
+
+            //robotAnimator.SetTrigger("robotWalk");
+            //humanAnimator.SetTrigger("robotWalk");
         }
         else
         {
-            humanAnimator.SetBool("robotIdle", true);
-            robotAnimator.SetBool("robotIdle", true);
+            if (!humanAnimator.GetCurrentAnimatorStateInfo(0).IsName("HumanDangleIdle"))
+            {
+                ResetAllTriggers(humanAnimator);
+                humanAnimator.SetTrigger("robotIdle");
+            }
+
+            if (!robotAnimator.GetCurrentAnimatorStateInfo(0).IsName("Armature_RobotIdle"))
+            {
+                ResetAllTriggers(robotAnimator);
+                robotAnimator.SetTrigger("robotIdle");
+            }
+
+            //robotAnimator.SetTrigger("robotIdle");
+            //humanAnimator.SetTrigger("robotIdle");
         }
     }
 
-    private void ResetAllBools(Animator animator)
+    private void ResetAllTriggers(Animator animator)
     {
         foreach (var param in animator.parameters)
         {
-            if (param.type == AnimatorControllerParameterType.Bool)
+            if (param.type == AnimatorControllerParameterType.Trigger)
             {
-                animator.SetBool(param.name, false);
+                animator.ResetTrigger(param.name);
             }
         }
     }
