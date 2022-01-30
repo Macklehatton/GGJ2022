@@ -24,11 +24,12 @@ public class DamageZone : MonoBehaviour
         {
             if (mode.RobotMode && damageRobot)
             {
-                playerHealth.currentHP -= damage * Time.deltaTime;
+
+                playerHealth.AdjustHealth(-1 * damage * Time.deltaTime);
             }
             else if (!mode.RobotMode && damageHuman)
             {
-                playerHealth.currentHP -= damage * Time.deltaTime;
+                playerHealth.AdjustHealth(-1 * damage * Time.deltaTime);
             }
         }           
     }
