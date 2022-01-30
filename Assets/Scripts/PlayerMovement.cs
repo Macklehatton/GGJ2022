@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         handleClimbing();
 
         // Jump
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && (grounded || canClimb))
         {
             jumping = true;
         }
