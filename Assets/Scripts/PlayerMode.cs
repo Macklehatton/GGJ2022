@@ -37,25 +37,7 @@ public class PlayerMode : MonoBehaviour
         {
             robotMode = !RobotMode;
         }
-        else if ( Input.GetKeyDown(KeyCode.M) )
-        {
-            AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
-            AudioSource humanTrack = tracks[1];
-            AudioSource robotTrack = tracks[0];
 
-            humanTrack.volume = 0.0f;
-            robotTrack.volume = 0.1f;
-
-            //mainTrack[0].volume = 0.0f;
-
-            //this.GetComponents<AudioSource>();
-
-
-
-
-
-
-        }
     }
 
     private void HandleModeSwitch()
@@ -74,5 +56,30 @@ public class PlayerMode : MonoBehaviour
             robot.SetActive(false);
             human.SetActive(true);
         }
+
+        SwitchTrack(robotMode);
+    }
+
+    private void SwitchTrack(bool toRobot)
+    {
+        AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
+        AudioSource humanTrack = tracks[0];
+        AudioSource robotTrack = tracks[1];
+
+        float mutagePerSecond = 0.1f;
+        float deltaVolume = mutagePerSecond * Time.deltaTime;
+
+        if (toRobot && robotTrack.volume < 0.1f)
+        {
+
+            humanTrack.volume -= deltaVolume;
+            robotTrack.volume += deltaVolume;
+        }
+        else if (humanTrack.volume < 0.1f)
+        {
+            humanTrack.volume += deltaVolume;
+            robotTrack.volume -= deltaVolume;
+        }
+
     }
 }
