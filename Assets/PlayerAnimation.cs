@@ -24,8 +24,8 @@ public class PlayerAnimation : MonoBehaviour
         speed = (transform.position - lastPosition).magnitude;
         lastPosition = transform.position;
 
-        ResetAllTriggers(robotAnimator);
-        ResetAllTriggers(humanAnimator);
+        ResetAllBools(robotAnimator);
+        ResetAllBools(humanAnimator);
 
         if (!mode.RobotMode)
         {
@@ -41,14 +41,13 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (speed > 0.1f)
         {            
-            humanAnimator.SetTrigger("humanWalk");
-            robotAnimator.SetTrigger("humanWalk");
-            
+            humanAnimator.SetBool("humanWalk", true);
+            robotAnimator.SetBool("humanWalk", true);
         }
         else
         {
-            humanAnimator.SetTrigger("humanIdle");
-            robotAnimator.SetTrigger("humanIdle");
+            humanAnimator.SetBool("humanIdle", true);
+            robotAnimator.SetBool("humanIdle", true);
         }
     }
 
@@ -56,23 +55,23 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (speed > 0.1f)
         {
-            robotAnimator.SetTrigger("robotWalk");
-            humanAnimator.SetTrigger("robotWalk");
+            humanAnimator.SetBool("robotWalk", true);
+            robotAnimator.SetBool("robotWalk", true);
         }
         else
         {
-            robotAnimator.SetTrigger("robotIdle");
-            humanAnimator.SetTrigger("robotIdle");
+            humanAnimator.SetBool("robotIdle", true);
+            robotAnimator.SetBool("robotIdle", true);
         }
     }
 
-    private void ResetAllTriggers(Animator animator)
+    private void ResetAllBools(Animator animator)
     {
         foreach (var param in animator.parameters)
         {
-            if (param.type == AnimatorControllerParameterType.Trigger)
+            if (param.type == AnimatorControllerParameterType.Bool)
             {
-                animator.ResetTrigger(param.name);
+                animator.SetBool(param.name, false);
             }
         }
     }
