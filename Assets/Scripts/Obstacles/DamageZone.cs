@@ -15,8 +15,13 @@ public class DamageZone : MonoBehaviour
     private bool damageHuman;
     [SerializeField]
     private bool damageRobot;
-
+    private AudioSource acidDamageTrack;
     private bool playerInZone;
+
+    public void Start()
+    {
+        acidDamageTrack = GameObject.Find("/Player/sfx/Acid Damage").GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -24,14 +29,15 @@ public class DamageZone : MonoBehaviour
         {
             if (mode.RobotMode && damageRobot)
             {
-
                 playerHealth.AdjustHealth(-1 * damage * Time.deltaTime);
+                acidDamageTrack.Play();
             }
             else if (!mode.RobotMode && damageHuman)
             {
                 playerHealth.AdjustHealth(-1 * damage * Time.deltaTime);
+                acidDamageTrack.Play();
             }
-        }           
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

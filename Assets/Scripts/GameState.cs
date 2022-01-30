@@ -17,6 +17,8 @@ public class GameState : MonoBehaviour
 
     public void Restart()
     {
+        Debug.Log("Restarting GameState");
+
         player.position = startLocation.position;
     }
 }
