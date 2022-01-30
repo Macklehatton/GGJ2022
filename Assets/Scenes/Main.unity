@@ -971,7 +971,6 @@ MonoBehaviour:
   playerGraphics: {fileID: 878318248}
   human: {fileID: 195151401}
   robot: {fileID: 1473473617}
-  defaultVolume: 0.1
   robotOffset: {x: 0, y: 0.275, z: 0}
 --- !u!114 &170536071
 MonoBehaviour:
