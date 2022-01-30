@@ -123,19 +123,6 @@ public class PlayerMovement : MonoBehaviour
             moveData.groundTestOrigin.position - Vector3.up * moveData.groundCheckDistance);
     }
 
-    private void LateUpdate()
-    {
-        // Ground debug
-        if (grounded)
-        {
-            moveData.playerRenderer.color = Color.blue;
-        }
-        else
-        {
-            moveData.playerRenderer.color = Color.red;
-        }
-    }
-
     private void handleFlippingSpriteBasedOnDirection(float xMove)
     {
         float y = transform.localScale.y;

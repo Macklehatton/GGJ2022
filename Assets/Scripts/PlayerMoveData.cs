@@ -11,7 +11,6 @@ public class PlayerMoveData : MonoBehaviour
     public float gravityScale;
     public Rigidbody2D playerRigidbody;
     public float groundCheckDistance;
-    public SpriteRenderer playerRenderer;
     public Transform groundTestOrigin;    
     public Vector3 groundCheckSize;
 }

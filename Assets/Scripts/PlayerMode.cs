@@ -7,6 +7,8 @@ public class PlayerMode : MonoBehaviour
     private bool robotMode;
 
     [SerializeField]
+    private Transform playerGraphics;
+    [SerializeField]
     private GameObject human;
     [SerializeField]
     private GameObject robot;
@@ -56,11 +58,13 @@ public class PlayerMode : MonoBehaviour
 
         if (RobotMode)
         {
+            playerGraphics.transform.parent = robot.transform;
             robot.SetActive(true);
             human.SetActive(false);
         }
         else
         {
+            playerGraphics.transform.parent = human.transform;
             robot.SetActive(false);
             human.SetActive(true);
         }
