@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
-    private float startingHP;
+    private float maxHP;
     [SerializeField]
     private GameState gameState;
 
     public float currentHP;
+
+    public float CurrentHP { get => currentHP; }
 
 
     public void AdjustHealth(float deltaHealth)
@@ -33,6 +35,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void Reset()
     {
-        currentHP = startingHP;
+        currentHP = maxHP;
     }
 }
