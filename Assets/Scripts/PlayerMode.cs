@@ -39,14 +39,20 @@ public class PlayerMode : MonoBehaviour
         }
         else if ( Input.GetKeyDown(KeyCode.M) )
         {
-            AudioSource[] mainTrack = this.GetComponentsInParent<AudioSource>();
-            mainTrack[0].volume = 0.0f;
+            AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
+            AudioSource humanTrack = tracks[1];
+            AudioSource robotTrack = tracks[0];
+
+            humanTrack.volume = 0.0f;
+            robotTrack.volume = 0.1f;
+
+            //mainTrack[0].volume = 0.0f;
 
             //this.GetComponents<AudioSource>();
 
-            
 
-                
+
+
 
 
         }
