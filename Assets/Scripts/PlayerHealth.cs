@@ -11,6 +11,12 @@ public class PlayerHealth : MonoBehaviour
 
     public float currentHP;
 
+
+    public void AdjustHealth(float deltaHealth)
+    {
+        currentHP += deltaHealth;
+    }
+
     private void Start()
     {
         Reset();
