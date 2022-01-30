@@ -971,6 +971,7 @@ MonoBehaviour:
   playerGraphics: {fileID: 878318248}
   human: {fileID: 195151401}
   robot: {fileID: 1473473617}
+  defaultVolume: 0.1
 --- !u!114 &170536071
 MonoBehaviour:
   m_ObjectHideFlags: 0
