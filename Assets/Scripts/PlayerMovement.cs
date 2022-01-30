@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerMoveData robotModeData;
 
     [SerializeField]
-    private LayerMask groundLayers;    
+    private LayerMask groundLayers;
     [SerializeField]
     private PlayerMode movementMode;
 
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Check mode
+        // update player movement characteristics depending on mode
         if (movementMode.RobotMode)
         {
             moveData = robotModeData;
@@ -45,16 +45,9 @@ public class PlayerMovement : MonoBehaviour
         // Get horizontal movement
         xMove = Input.GetAxis("Horizontal");
 
-        if (canClimb)
-        {
-            yMove = Input.GetAxis("Vertical");
-            playerRigidbody.gravityScale = 0.0f;
-        }
-        else
-        {
-            yMove = 0.0f;
-            playerRigidbody.gravityScale = moveData.gravityScale;
-        }
+        handleFlippingSpriteBasedOnDirection(xMove);
+
+        handleClimbing();
 
         // Jump
         if (Input.GetButtonDown("Jump") && grounded)
@@ -101,10 +94,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Ground test
         RaycastHit2D hit = Physics2D.BoxCast(
-            moveData.groundTestOrigin.position, 
-            moveData.groundCheckSize, 0.0f, 
+            moveData.groundTestOrigin.position,
+            moveData.groundCheckSize, 0.0f,
             -Vector2.up,
-            moveData.groundCheckDistance, 
+            moveData.groundCheckDistance,
             groundLayers);
 
         if (hit.collider != null)
@@ -140,6 +133,32 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             moveData.playerRenderer.color = Color.red;
+        }
+    }
+
+    private void handleFlippingSpriteBasedOnDirection(float xMove)
+    {
+        float y = transform.localScale.y;
+        float z = transform.localScale.z;
+        if (xMove < 0.0f) {
+            transform.localScale = new Vector3(-1.0f, y, z);
+        }
+        else if (xMove > 0.0f) {
+            transform.localScale = new Vector3(1.0f, y, z);
+        }
+    }
+
+    private void handleClimbing()
+    {
+        if (canClimb)
+        {
+            yMove = Input.GetAxis("Vertical");
+            playerRigidbody.gravityScale = 0.0f;
+        }
+        else
+        {
+            yMove = 0.0f;
+            playerRigidbody.gravityScale = moveData.gravityScale;
         }
     }
 }
