@@ -35,6 +35,12 @@ public class PlayerMode : MonoBehaviour
         {
             robotMode = !RobotMode;
         }
+        else if ( Input.GetKeyDown(KeyCode.M) )
+        {
+            AudioSource mainTrack = this.GetComponents<AudioSource>()[0];
+
+
+        }
     }
 
     private void HandleModeSwitch()
