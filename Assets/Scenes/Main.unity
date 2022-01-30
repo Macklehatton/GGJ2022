@@ -3515,6 +3515,7 @@ GameObject:
   - component: {fileID: 1268736048}
   - component: {fileID: 1268736050}
   - component: {fileID: 1268736049}
+  - component: {fileID: 1268736051}
   m_Layer: 0
   m_Name: GardenBlocks
   m_TagString: Untagged
@@ -3623,6 +3624,22 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1268736051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268736047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da720e1024aee664bb80649ebd2ba4b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  humanCollapses: 0
+  robotCollapses: 1
+  respawnTime: 2
+  mode: {fileID: 0}
 --- !u!1 &1272710175
 GameObject:
   m_ObjectHideFlags: 0
