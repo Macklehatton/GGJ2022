@@ -14,6 +14,8 @@ public class PlayerMode : MonoBehaviour
     private GameObject robot;
     [SerializeField]
     private float defaultVolume;
+    [SerializeField]
+    private Vector3 robotOffset;
 
     private bool muted = false;
 
@@ -56,12 +58,14 @@ public class PlayerMode : MonoBehaviour
         if (RobotMode)
         {
             playerGraphics.transform.parent = robot.transform;
+            playerGraphics.transform.position = robot.transform.position + robotOffset;
             robot.SetActive(true);
             human.SetActive(false);
         }
         else
         {
             playerGraphics.transform.parent = human.transform;
+            playerGraphics.transform.position = human.transform.position;
             robot.SetActive(false);
             human.SetActive(true);
         }

@@ -86,7 +86,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HumanDangleIdle
-  m_Speed: 0.32
+  m_Speed: 0.75
   m_CycleOffset: 0.5
   m_Transitions: []
   m_StateMachineBehaviours: []
