@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField]
-    private float maxHP;
-    [SerializeField]
     private GameState gameState;
-    [SerializeField]
-    public HealthBar healthBar;
+    private float maxHP = 100.0f;
+    private HealthBar healthBar;
 
-    public float currentHP;
+    private float currentHP;
 
     public float CurrentHP { get => currentHP; }
 
+    public void Start()
+    {
+        healthBar = FindObjectOfType<HealthBar>();
+        gameState = FindObjectOfType<GameState>();
+        Reset();
+    }
 
     public void AdjustHealth(float deltaHealth)
     {
         currentHP += deltaHealth;
         healthBar.SetHealth(currentHP);
-    }
-
-    private void Start()
-    {
-        Reset();
     }
 
     private void Update()

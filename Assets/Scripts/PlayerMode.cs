@@ -14,9 +14,18 @@ public class PlayerMode : MonoBehaviour
     private GameObject robot;
     [SerializeField]
     private Vector3 robotOffset;
+    AudioSource humanTrack;
+    AudioSource robotTrack;
 
     private bool muted = false;
     public bool RobotMode { get => robotMode; }
+
+    public void Start()
+    {
+        AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
+        humanTrack = tracks[0];
+        robotTrack = tracks[1];
+    }
 
     public void Update()
     {
@@ -79,9 +88,6 @@ public class PlayerMode : MonoBehaviour
 
     private void SwitchTrack(bool toRobot)
     {
-        AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
-        AudioSource humanTrack = tracks[0];
-        AudioSource robotTrack = tracks[1];
         Debug.Log("Mixing track: " + humanTrack.clip.name);
 
         float mutagePerSecond = 0.1f;
@@ -103,9 +109,6 @@ public class PlayerMode : MonoBehaviour
 
     private void muteTrack()
     {
-        AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
-        AudioSource humanTrack = tracks[0];
-        AudioSource robotTrack = tracks[1];
         Debug.Log("Muting track: " + humanTrack.clip.name);
 
         if (muted)
