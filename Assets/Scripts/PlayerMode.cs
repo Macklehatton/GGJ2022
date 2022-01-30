@@ -12,13 +12,8 @@ public class PlayerMode : MonoBehaviour
     private GameObject human;
     [SerializeField]
     private GameObject robot;
-    [SerializeField]
-    private float defaultVolume;
-    [SerializeField]
-    private Vector3 robotOffset;
 
     private bool muted = false;
-
     public bool RobotMode { get => robotMode; }
 
     public void Update()
@@ -45,9 +40,9 @@ public class PlayerMode : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            Mute();
+            muted = !muted;
+            muteTrack();
         }
-
 
     }
 
@@ -58,19 +53,24 @@ public class PlayerMode : MonoBehaviour
         if (RobotMode)
         {
             playerGraphics.transform.parent = robot.transform;
-            playerGraphics.transform.position = robot.transform.position + robotOffset;
             robot.SetActive(true);
             human.SetActive(false);
         }
         else
         {
             playerGraphics.transform.parent = human.transform;
-            playerGraphics.transform.position = human.transform.position;
             robot.SetActive(false);
             human.SetActive(true);
         }
 
-        SwitchTrack(robotMode);
+        if (muted)
+        {
+            return;
+        }
+        else
+        {
+            SwitchTrack(robotMode);
+        }
     }
 
     private void SwitchTrack(bool toRobot)
@@ -78,31 +78,31 @@ public class PlayerMode : MonoBehaviour
         AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
         AudioSource humanTrack = tracks[0];
         AudioSource robotTrack = tracks[1];
-        
-        if (muted == true)
+        Debug.Log("Mixing track: " + humanTrack.clip.name);
+
+        float mutagePerSecond = 0.1f;
+        float deltaVolume = mutagePerSecond * Time.deltaTime;
+
+        if (toRobot && robotTrack.volume < 0.1f)
         {
-            return;
+
+            humanTrack.volume -= deltaVolume;
+            robotTrack.volume += deltaVolume;
+        }
+        else if (humanTrack.volume < 0.1f)
+        {
+            humanTrack.volume += deltaVolume;
+            robotTrack.volume -= deltaVolume;
         }
 
-        if (toRobot)
-        {
-            robotTrack.volume = defaultVolume;
-            humanTrack.volume = 0.0f;
-        }
-        else
-        {
-            humanTrack.volume = defaultVolume;
-            robotTrack.volume = 0.0f;
-        }
     }
 
-    private void Mute()
+    private void muteTrack()
     {
         AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
         AudioSource humanTrack = tracks[0];
         AudioSource robotTrack = tracks[1];
-
-        muted = !muted;
+        Debug.Log("Muting track: " + humanTrack.clip.name);
 
         if (muted)
         {
@@ -112,7 +112,8 @@ public class PlayerMode : MonoBehaviour
         else
         {
             humanTrack.volume = 0.1f;
-            robotTrack.volume = 0.1f;
+            robotTrack.volume = 0.0f;
         }
+
     }
 }
