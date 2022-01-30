@@ -4,8 +4,17 @@ ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
   - first:
-      74: 4781951162920444690
-    second: Armature|ArmatureAction
+      74: -29331035237575261
+    second: Armature|HumanIdle
+  - first:
+      74: 6144033513248787081
+    second: Armature|HumanWalk
+  - first:
+      74: -6184253560149946961
+    second: Armature|RobotIdle
+  - first:
+      74: 5192218114323237528
+    second: Armature|RobotWalk
   externalObjects: {}
   materials:
     materialImportMode: 2
