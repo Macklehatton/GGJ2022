@@ -39,10 +39,12 @@ public class PlayerAnimation : MonoBehaviour
         if (speed > 0.1f)
         {
             humanAnimator.SetTrigger("humanWalk");
+            robotAnimator.SetTrigger("humanWalk");
         }
         else
         {
             humanAnimator.SetTrigger("humanIdle");
+            robotAnimator.SetTrigger("humanIdle");
         }
     }
 
@@ -51,10 +53,12 @@ public class PlayerAnimation : MonoBehaviour
         if (speed > 0.1f)
         {
             robotAnimator.SetTrigger("robotWalk");
+            humanAnimator.SetTrigger("robotWalk");
         }
         else
         {
             robotAnimator.SetTrigger("robotIdle");
+            humanAnimator.SetTrigger("robotIdle");
         }
     }
 }
