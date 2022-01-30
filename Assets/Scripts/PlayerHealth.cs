@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     private float maxHP;
     [SerializeField]
     private GameState gameState;
+    [SerializeField]
+    public HealthBar healthBar;
 
     public float currentHP;
 
@@ -17,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     public void AdjustHealth(float deltaHealth)
     {
         currentHP += deltaHealth;
+        healthBar.SetHealth(currentHP);
     }
 
     private void Start()
@@ -36,5 +39,6 @@ public class PlayerHealth : MonoBehaviour
     public void Reset()
     {
         currentHP = maxHP;
+        healthBar.SetHealth(currentHP);
     }
 }
