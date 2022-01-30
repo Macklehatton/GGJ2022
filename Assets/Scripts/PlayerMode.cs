@@ -12,8 +12,10 @@ public class PlayerMode : MonoBehaviour
     private GameObject human;
     [SerializeField]
     private GameObject robot;
+    [SerializeField]
+    private float defaultVolume;
 
-    private bool muting = false;
+    private bool muted = false;
 
     public bool RobotMode { get => robotMode; }
 
@@ -41,7 +43,7 @@ public class PlayerMode : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            mute();
+            Mute();
         }
 
 
@@ -72,44 +74,41 @@ public class PlayerMode : MonoBehaviour
         AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
         AudioSource humanTrack = tracks[0];
         AudioSource robotTrack = tracks[1];
-
-        float mutagePerSecond = 0.1f;
-        float deltaVolume = mutagePerSecond * Time.deltaTime;
-
-        if (toRobot && robotTrack.volume < 0.1f)
+        
+        if (muted == true)
         {
-
-            humanTrack.volume -= deltaVolume;
-            robotTrack.volume += deltaVolume;
-        }
-        else if (humanTrack.volume < 0.1f)
-        {
-            humanTrack.volume += deltaVolume;
-            robotTrack.volume -= deltaVolume;
+            return;
         }
 
+        if (toRobot)
+        {
+            robotTrack.volume = defaultVolume;
+            humanTrack.volume = 0.0f;
+        }
+        else
+        {
+            humanTrack.volume = defaultVolume;
+            robotTrack.volume = 0.0f;
+        }
     }
 
-    private void mute()
+    private void Mute()
     {
         AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
         AudioSource humanTrack = tracks[0];
         AudioSource robotTrack = tracks[1];
 
-        if (muting)
-        {
-            humanTrack.volume = 0.1f;
-            robotTrack.volume = 0.0f;
-            muting = false;
-        }
-        else
+        muted = !muted;
+
+        if (muted)
         {
             humanTrack.volume = 0.0f;
             robotTrack.volume = 0.0f;
-            muting = true;
         }
-
-
-
+        else
+        {
+            humanTrack.volume = 0.1f;
+            robotTrack.volume = 0.1f;
+        }
     }
 }
