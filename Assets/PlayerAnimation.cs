@@ -24,6 +24,9 @@ public class PlayerAnimation : MonoBehaviour
         speed = (transform.position - lastPosition).magnitude;
         lastPosition = transform.position;
 
+        ResetAllTriggers(robotAnimator);
+        ResetAllTriggers(humanAnimator);
+
         if (!mode.RobotMode)
         {
             HandleHumanMode();
@@ -37,9 +40,10 @@ public class PlayerAnimation : MonoBehaviour
     private void HandleHumanMode()
     {
         if (speed > 0.1f)
-        {
+        {            
             humanAnimator.SetTrigger("humanWalk");
             robotAnimator.SetTrigger("humanWalk");
+            
         }
         else
         {
@@ -59,6 +63,17 @@ public class PlayerAnimation : MonoBehaviour
         {
             robotAnimator.SetTrigger("robotIdle");
             humanAnimator.SetTrigger("robotIdle");
+        }
+    }
+
+    private void ResetAllTriggers(Animator animator)
+    {
+        foreach (var param in animator.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                animator.ResetTrigger(param.name);
+            }
         }
     }
 }
