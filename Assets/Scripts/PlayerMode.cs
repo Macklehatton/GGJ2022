@@ -13,6 +13,8 @@ public class PlayerMode : MonoBehaviour
     [SerializeField]
     private GameObject robot;
 
+    private bool muting = false;
+
     public bool RobotMode { get => robotMode; }
 
     public void Update()
@@ -37,6 +39,11 @@ public class PlayerMode : MonoBehaviour
         {
             robotMode = !RobotMode;
         }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            mute();
+        }
+
 
     }
 
@@ -80,6 +87,29 @@ public class PlayerMode : MonoBehaviour
             humanTrack.volume += deltaVolume;
             robotTrack.volume -= deltaVolume;
         }
+
+    }
+
+    private void mute()
+    {
+        AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
+        AudioSource humanTrack = tracks[0];
+        AudioSource robotTrack = tracks[1];
+
+        if (muting)
+        {
+            humanTrack.volume = 0.1f;
+            robotTrack.volume = 0.0f;
+            muting = false;
+        }
+        else
+        {
+            humanTrack.volume = 0.0f;
+            robotTrack.volume = 0.0f;
+            muting = true;
+        }
+
+
 
     }
 }
