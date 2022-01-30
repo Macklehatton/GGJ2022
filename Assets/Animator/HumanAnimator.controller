@@ -275,26 +275,26 @@ AnimatorController:
   m_Name: HumanAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: robotWalk
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: robotIdle
-    m_Type: 4
+  - m_Name: humanIdle
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: humanWalk
-    m_Type: 4
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: humanIdle
-    m_Type: 4
+  - m_Name: robotIdle
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: robotWalk
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -485,7 +485,7 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 910, y: 270, z: 0}
+  m_AnyStatePosition: {x: 1200, y: 260, z: 0}
   m_EntryPosition: {x: -60, y: 50, z: 0}
   m_ExitPosition: {x: 1170, y: 160, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
