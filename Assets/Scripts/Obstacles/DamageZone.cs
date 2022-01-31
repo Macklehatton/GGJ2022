@@ -16,8 +16,11 @@ public class DamageZone : MonoBehaviour
     [SerializeField]
     private bool damageRobot;
     private AudioSource acidDamageTrack;
+    
     private bool playerInZone;
 
+
+    
     public void Start()
     {
         acidDamageTrack = GameObject.Find("/Player/sfx/Acid Damage").GetComponent<AudioSource>();

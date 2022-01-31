@@ -16,6 +16,8 @@ public class PlayerMode : MonoBehaviour
     private Vector3 robotOffset;
     AudioSource humanTrack;
     AudioSource robotTrack;
+    private AudioSource transformToRobotSound;
+    private AudioSource transformToHumanSound;
 
     private bool muted = false;
     public bool RobotMode { get => robotMode; }
@@ -25,6 +27,14 @@ public class PlayerMode : MonoBehaviour
         AudioSource[] tracks = GetComponentsInChildren<AudioSource>();
         humanTrack = tracks[0];
         robotTrack = tracks[1];
+
+        transformToRobotSound = gameObject.AddComponent<AudioSource>();
+        transformToRobotSound.clip = Resources.Load("sfx/transform_to_robot") as AudioClip;
+        transformToRobotSound.volume = 0.03f;
+
+        transformToHumanSound = gameObject.AddComponent<AudioSource>();
+        transformToHumanSound.clip = Resources.Load("sfx/transform_to_human") as AudioClip;
+        transformToHumanSound.volume = 0.03f;
     }
 
     public void Update()
@@ -67,6 +77,7 @@ public class PlayerMode : MonoBehaviour
             playerGraphics.transform.position = robot.transform.position + robotOffset;
             robot.SetActive(true);
             human.SetActive(false);
+            transformToRobotSound.Play();
         }
         else
         {
@@ -74,6 +85,7 @@ public class PlayerMode : MonoBehaviour
             playerGraphics.transform.position = human.transform.position;
             robot.SetActive(false);
             human.SetActive(true);
+            transformToHumanSound.Play();
         }
 
         if (muted)
