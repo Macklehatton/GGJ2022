@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanCollapses: 1
   robotCollapses: 0
-  respawnTime: 2
+  respawnTime: 1
   mode: {fileID: 170536070}
 --- !u!1 &290783779
 GameObject:
@@ -10082,7 +10082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanCollapses: 0
   robotCollapses: 1
-  respawnTime: 2
+  respawnTime: 1
   mode: {fileID: 170536070}
 --- !u!19719996 &1268736052
 TilemapCollider2D:
