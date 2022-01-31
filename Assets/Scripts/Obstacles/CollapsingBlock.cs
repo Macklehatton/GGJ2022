@@ -16,6 +16,7 @@ public class CollapsingBlock : MonoBehaviour
 
     private Collider2D blockCollider;
     private TilemapRenderer renderer;
+    private AudioSource crumbleSound;
 
     private bool collapsed;
     private float timeCollapsed;
@@ -24,6 +25,12 @@ public class CollapsingBlock : MonoBehaviour
     {
         blockCollider = GetComponent<Collider2D>();
         renderer = GetComponent<TilemapRenderer>();
+
+
+
+        crumbleSound = gameObject.AddComponent<AudioSource>();
+        crumbleSound.clip = Resources.Load("sfx/crumble") as AudioClip;
+        crumbleSound.volume = 0.03f;
     }
 
     public void Update()
@@ -63,6 +70,7 @@ public class CollapsingBlock : MonoBehaviour
         renderer.enabled = false;
         collapsed = true;
         blockCollider.enabled = false;
+        crumbleSound.Play();
     }
 
     public void Respawn()
