@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 700
-  jumpSpeed: 650
+  jumpSpeed: 700
   maxJumpTime: 0.25
   climbSpeed: 400
   gravityScale: 6
@@ -930,6 +930,7 @@ MonoBehaviour:
   movementMode: {fileID: 6257216030190779749}
   moveData: {fileID: 0}
   canClimb: 0
+  isClimbing: 0
 --- !u!114 &6257216030190779749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1057,7 +1058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 400
-  jumpSpeed: 400
+  jumpSpeed: 500
   maxJumpTime: 0.25
   climbSpeed: 300
   gravityScale: 4
