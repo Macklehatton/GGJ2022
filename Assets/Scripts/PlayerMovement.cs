@@ -23,11 +23,20 @@ public class PlayerMovement : MonoBehaviour
     public PlayerMoveData moveData;
 
     public bool canClimb;
+    public bool isClimbing = false;
+
+    private AudioSource climbSound;
 
     private void Start()
     {
         moveData = humanModeData;
         playerRigidbody = GetComponent<Rigidbody2D>();
+
+
+        climbSound = gameObject.AddComponent<AudioSource>();
+        climbSound.clip = Resources.Load("sfx/climbing") as AudioClip;
+        climbSound.volume = 0.03f;
+        climbSound.loop = true;
     }
 
     private void Update()
@@ -141,11 +150,24 @@ public class PlayerMovement : MonoBehaviour
         {
             yMove = Input.GetAxis("Vertical");
             playerRigidbody.gravityScale = 0.0f;
+            if (yMove != 0.0f && !isClimbing)
+            {
+                climbSound.Play();
+                isClimbing = true;
+            }
+            else
+            {
+                //climbSound.Stop();
+                //isClimbing = false;
+            }
         }
         else
         {
             yMove = 0.0f;
             playerRigidbody.gravityScale = moveData.gravityScale;
+
+            climbSound.Stop();
+            isClimbing = false;
         }
     }
 }
