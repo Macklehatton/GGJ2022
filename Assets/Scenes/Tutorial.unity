@@ -505,8 +505,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  playerHealth: {fileID: 0}
-  mode: {fileID: 0}
+  playerHealth: {fileID: 1844239009}
+  mode: {fileID: 1844239010}
   damageHuman: 1
   damageRobot: 0
 --- !u!1 &122289148
@@ -889,8 +889,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  playerHealth: {fileID: 0}
-  mode: {fileID: 0}
+  playerHealth: {fileID: 1844239009}
+  mode: {fileID: 1844239010}
   damageHuman: 0
   damageRobot: 1
 --- !u!50 &192832906
@@ -1384,7 +1384,7 @@ MonoBehaviour:
   humanCollapses: 1
   robotCollapses: 0
   respawnTime: 2
-  mode: {fileID: 0}
+  mode: {fileID: 1844239010}
 --- !u!1 &290783779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,8 +2185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adcfd1d4a058c84cb9ae255a82ab847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: {fileID: 0}
-  movement: {fileID: 0}
+  mode: {fileID: 1844239010}
+  movement: {fileID: 1844239011}
   byHuman: 1
   byRobot: 0
 --- !u!1 &447842488
@@ -2611,7 +2611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLocation: {fileID: 1272710176}
-  player: {fileID: 0}
+  player: {fileID: 1844239012}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,7 +3509,7 @@ MonoBehaviour:
   humanCollapses: 0
   robotCollapses: 1
   respawnTime: 2
-  mode: {fileID: 0}
+  mode: {fileID: 1844239010}
 --- !u!19719996 &1268736052
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9649,6 +9649,39 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1844239009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6257216030190779754, guid: 2367ffb9f3d3c81418c927cc2f86fc1a, type: 3}
+  m_PrefabInstance: {fileID: 1327410173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994cc98a6298dbd4c9725e31e5e9c2f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1844239010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6257216030190779749, guid: 2367ffb9f3d3c81418c927cc2f86fc1a, type: 3}
+  m_PrefabInstance: {fileID: 1327410173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106279961b340af44aee60f7b59498f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1844239011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6257216030190779748, guid: 2367ffb9f3d3c81418c927cc2f86fc1a, type: 3}
+  m_PrefabInstance: {fileID: 1327410173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0188534f38d1c9240a8e34663a790cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1844239012 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6257216030190779750, guid: 2367ffb9f3d3c81418c927cc2f86fc1a, type: 3}
