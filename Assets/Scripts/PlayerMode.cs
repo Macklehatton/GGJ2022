@@ -47,10 +47,12 @@ public class PlayerMode : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             robotMode = false;
+            playTransformSound(robotMode);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             robotMode = true;
+            playTransformSound(robotMode);
         }
         else if ( Input.mouseScrollDelta.y != 0.0f ||
                   Input.GetKeyDown(KeyCode.LeftShift) ||
@@ -58,6 +60,7 @@ public class PlayerMode : MonoBehaviour
                   Input.GetKeyDown(KeyCode.Tab) )
         {
             robotMode = !RobotMode;
+            playTransformSound(robotMode);
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
@@ -77,7 +80,6 @@ public class PlayerMode : MonoBehaviour
             playerGraphics.transform.position = robot.transform.position + robotOffset;
             robot.SetActive(true);
             human.SetActive(false);
-            transformToRobotSound.Play();
         }
         else
         {
@@ -85,7 +87,6 @@ public class PlayerMode : MonoBehaviour
             playerGraphics.transform.position = human.transform.position;
             robot.SetActive(false);
             human.SetActive(true);
-            transformToHumanSound.Play();
         }
 
         if (muted)
@@ -133,6 +134,15 @@ public class PlayerMode : MonoBehaviour
             humanTrack.volume = 0.1f;
             robotTrack.volume = 0.0f;
         }
+    }
 
+    private void playTransformSound(bool forRobot)
+    {
+        if (forRobot)
+        {
+            transformToRobotSound.Play();
+            return;
+        }
+        transformToHumanSound.Play();
     }
 }
